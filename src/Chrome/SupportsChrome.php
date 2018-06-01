@@ -52,8 +52,9 @@ trait SupportsChrome
      * Build the process to run the Chromedriver.
      *
      *
-     * @return \Symfony\Component\Process\Process
      * @throws \RuntimeException if the driver file path doesn't exist.
+     *
+     * @return \Symfony\Component\Process\Process
      */
     protected static function buildChromeProcess()
     {
@@ -63,7 +64,8 @@ trait SupportsChrome
     /**
      * Set the path to the custom Chromedriver.
      *
-     * @param  string  $path
+     * @param string $path
+     *
      * @return void
      */
     public static function useChromedriver($path)

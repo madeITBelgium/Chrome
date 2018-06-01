@@ -2,10 +2,9 @@
 
 namespace MadeITBelgium\Chrome;
 
-use Exception;
-use MadeITBelgium\Chrome\Chrome\SupportsChrome;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use MadeITBelgium\Chrome\Chrome\SupportsChrome;
 
 class ChromeBrowser
 {
@@ -13,7 +12,7 @@ class ChromeBrowser
         SupportsChrome;
 
     private $url;
-    
+
     /**
      * Register the base URL with Dusk.
      *
@@ -22,7 +21,7 @@ class ChromeBrowser
     protected function setUp($url)
     {
         $this->url = $url;
-        
+
         Browser::$baseUrl = $this->url;
 
         Browser::$storeScreenshotsAt = base_path('storate/app/chrome/screenshots');
@@ -37,9 +36,9 @@ class ChromeBrowser
      */
     protected function driver()
     {
-        $options = (new ChromeOptions)->addArguments([
+        $options = (new ChromeOptions())->addArguments([
             '--disable-gpu',
-            '--headless'
+            '--headless',
         ]);
 
         return RemoteWebDriver::create(

@@ -3,7 +3,6 @@
 namespace MadeITBelgium\Chrome;
 
 use Exception;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class ChromeServiceProvider extends ServiceProvider
@@ -15,17 +14,16 @@ class ChromeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
     }
 
     /**
      * Register any package services.
      *
-     * @return void
      * @throws Exception
+     *
+     * @return void
      */
     public function register()
     {
-        
     }
 }

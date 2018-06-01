@@ -9,10 +9,11 @@ trait InteractsWithCookies
     /**
      * Get or set an encrypted cookie's value.
      *
-     * @param  string  $name
-     * @param  string|null  $value
-     * @param  int|DateTimeInterface|null  $expiry
-     * @param  array  $options
+     * @param string                     $name
+     * @param string|null                $value
+     * @param int|DateTimeInterface|null $expiry
+     * @param array                      $options
+     *
      * @return string
      */
     public function cookie($name, $value = null, $expiry = null, array $options = [])
@@ -29,10 +30,11 @@ trait InteractsWithCookies
     /**
      * Get or set a plain cookie's value.
      *
-     * @param  string  $name
-     * @param  string|null  $value
-     * @param  int|DateTimeInterface|null  $expiry
-     * @param  array  $options
+     * @param string                     $name
+     * @param string|null                $value
+     * @param int|DateTimeInterface|null $expiry
+     * @param array                      $options
+     *
      * @return string
      */
     public function plainCookie($name, $value = null, $expiry = null, array $options = [])
@@ -49,11 +51,12 @@ trait InteractsWithCookies
     /**
      * Add the given cookie.
      *
-     * @param  string  $name
-     * @param  string  $value
-     * @param  int|DateTimeInterface|null  $expiry
-     * @param  array  $options
-     * @param  bool  $encrypt
+     * @param string                     $name
+     * @param string                     $value
+     * @param int|DateTimeInterface|null $expiry
+     * @param array                      $options
+     * @param bool                       $encrypt
+     *
      * @return $this
      */
     public function addCookie($name, $value, $expiry = null, array $options = [], $encrypt = true)
@@ -76,7 +79,8 @@ trait InteractsWithCookies
     /**
      * Delete the given cookie.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return $this
      */
     public function deleteCookie($name)
