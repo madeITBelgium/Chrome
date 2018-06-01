@@ -9,8 +9,9 @@ trait InteractsWithMouse
     /**
      * Move the mouse by offset X and Y.
      *
-     * @param  int  $xOffset
-     * @param  int  $yOffset
+     * @param int $xOffset
+     * @param int $yOffset
+     *
      * @return $this
      */
     public function moveMouse($xOffset, $yOffset)
@@ -25,7 +26,8 @@ trait InteractsWithMouse
     /**
      * Move the mouse over the given selector.
      *
-     * @param  string  $selector
+     * @param string $selector
+     *
      * @return $this
      */
     public function mouseover($selector)
@@ -40,7 +42,8 @@ trait InteractsWithMouse
     /**
      * Click the element at the given selector.
      *
-     * @param  string|null  $selector
+     * @param string|null $selector
+     *
      * @return $this
      */
     public function click($selector = null)
@@ -81,7 +84,8 @@ trait InteractsWithMouse
     /**
      * Right click the element at the given selector.
      *
-     * @param  string|null  $selector
+     * @param string|null $selector
+     *
      * @return $this
      */
     public function rightClick($selector = null)

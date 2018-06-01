@@ -3,10 +3,10 @@
 namespace MadeITBelgium\Chrome;
 
 use Exception;
-use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Facebook\WebDriver\WebDriverBy;
+use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
+use InvalidArgumentException;
 
 class ElementResolver
 {
@@ -43,14 +43,15 @@ class ElementResolver
         'findButtonBySelector',
         'findButtonByName',
         'findButtonByValue',
-        'findButtonByText'
+        'findButtonByText',
     ];
 
     /**
      * Create a new element resolver instance.
      *
-     * @param  \Facebook\WebDriver\Remote\RemoteWebDriver  $driver
-     * @param  string  $prefix
+     * @param \Facebook\WebDriver\Remote\RemoteWebDriver $driver
+     * @param string                                     $prefix
+     *
      * @return void
      */
     public function __construct($driver, $prefix = 'body')
@@ -62,7 +63,8 @@ class ElementResolver
     /**
      * Set the page elements the resolver should use as shortcuts.
      *
-     * @param  array  $elements
+     * @param array $elements
+     *
      * @return $this
      */
     public function pageElements(array $elements)
@@ -75,42 +77,45 @@ class ElementResolver
     /**
      * Resolve the element for a given input "field".
      *
-     * @param  string  $field
+     * @param string $field
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      */
     public function resolveForTyping($field)
     {
-        if (! is_null($element = $this->findById($field))) {
+        if (!is_null($element = $this->findById($field))) {
             return $element;
         }
 
         return $this->firstOrFail([
-            $field, "input[name='{$field}']", "textarea[name='{$field}']"
+            $field, "input[name='{$field}']", "textarea[name='{$field}']",
         ]);
     }
 
     /**
      * Resolve the element for a given select "field".
      *
-     * @param  string  $field
+     * @param string $field
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      */
     public function resolveForSelection($field)
     {
-        if (! is_null($element = $this->findById($field))) {
+        if (!is_null($element = $this->findById($field))) {
             return $element;
         }
 
         return $this->firstOrFail([
-            $field, "select[name='{$field}']"
+            $field, "select[name='{$field}']",
         ]);
     }
 
     /**
      * Resolve all the options with the given value on the select field.
      *
-     * @param string  $field
+     * @param string $field
      * @param array  $values
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement[]
      */
     public function resolveSelectOptions($field, array $values)
@@ -130,13 +135,14 @@ class ElementResolver
     /**
      * Resolve the element for a given radio "field" / value.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param string $field
+     * @param string $value
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      */
     public function resolveForRadioSelection($field, $value = null)
     {
-        if (! is_null($element = $this->findById($field))) {
+        if (!is_null($element = $this->findById($field))) {
             return $element;
         }
 
@@ -147,79 +153,83 @@ class ElementResolver
         }
 
         return $this->firstOrFail([
-            $field, "input[type=radio][name='{$field}'][value='{$value}']"
+            $field, "input[type=radio][name='{$field}'][value='{$value}']",
         ]);
     }
 
     /**
      * Resolve the element for a given checkbox "field".
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param string $field
+     * @param string $value
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      */
     public function resolveForChecking($field, $value = null)
     {
-        if (! is_null($element = $this->findById($field))) {
+        if (!is_null($element = $this->findById($field))) {
             return $element;
         }
 
         $selector = "input[type=checkbox][name='{$field}']";
 
-        if (! is_null($value)) {
+        if (!is_null($value)) {
             $selector .= "[value='{$value}']";
         }
 
         return $this->firstOrFail([
-            $field, $selector
+            $field, $selector,
         ]);
     }
 
     /**
      * Resolve the element for a given file "field".
      *
-     * @param  string  $field
+     * @param string $field
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      */
     public function resolveForAttachment($field)
     {
-        if (! is_null($element = $this->findById($field))) {
+        if (!is_null($element = $this->findById($field))) {
             return $element;
         }
 
         return $this->firstOrFail([
-            $field, "input[type=file][name='{$field}']"
+            $field, "input[type=file][name='{$field}']",
         ]);
     }
 
     /**
      * Resolve the element for a given "field".
      *
-     * @param  string  $field
+     * @param string $field
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      */
     public function resolveForField($field)
     {
-        if (! is_null($element = $this->findById($field))) {
+        if (!is_null($element = $this->findById($field))) {
             return $element;
         }
 
         return $this->firstOrFail([
             $field, "input[name='{$field}']", "textarea[name='{$field}']",
-            "select[name='{$field}']", "button[name='{$field}']"
+            "select[name='{$field}']", "button[name='{$field}']",
         ]);
     }
 
     /**
      * Resolve the element for a given button.
      *
-     * @param  string  $button
+     * @param string $button
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      */
     public function resolveForButtonPress($button)
     {
         foreach ($this->buttonFinders as $method) {
-            if (! is_null($element = $this->{$method}($button))) {
+            if (!is_null($element = $this->{$method}($button))) {
                 return $element;
             }
         }
@@ -232,12 +242,13 @@ class ElementResolver
     /**
      * Resolve the element for a given button by selector.
      *
-     * @param  string  $button
+     * @param string $button
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
      */
     protected function findButtonBySelector($button)
     {
-        if (! is_null($element = $this->find($button))) {
+        if (!is_null($element = $this->find($button))) {
             return $element;
         }
     }
@@ -245,14 +256,15 @@ class ElementResolver
     /**
      * Resolve the element for a given button by name.
      *
-     * @param  string  $button
+     * @param string $button
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
      */
     protected function findButtonByName($button)
     {
-        if (! is_null($element = $this->find("input[type=submit][name='{$button}']")) ||
-            ! is_null($element = $this->find("input[type=button][value='{$button}']")) ||
-            ! is_null($element = $this->find("button[name='{$button}']"))) {
+        if (!is_null($element = $this->find("input[type=submit][name='{$button}']")) ||
+            !is_null($element = $this->find("input[type=button][value='{$button}']")) ||
+            !is_null($element = $this->find("button[name='{$button}']"))) {
             return $element;
         }
     }
@@ -260,12 +272,13 @@ class ElementResolver
     /**
      * Resolve the element for a given button by value.
      *
-     * @param  string  $button
+     * @param string $button
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
      */
     protected function findButtonByValue($button)
     {
-        foreach ($this->all("input[type=submit]") as $element) {
+        foreach ($this->all('input[type=submit]') as $element) {
             if ($element->getAttribute('value') === $button) {
                 return $element;
             }
@@ -275,7 +288,8 @@ class ElementResolver
     /**
      * Resolve the element for a given button by text.
      *
-     * @param  string  $button
+     * @param string $button
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
      */
     protected function findButtonByText($button)
@@ -290,7 +304,8 @@ class ElementResolver
     /**
      * Attempt to find the selector by ID.
      *
-     * @param  string  $selector
+     * @param string $selector
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
      */
     protected function findById($selector)
@@ -303,7 +318,8 @@ class ElementResolver
     /**
      * Find an element by the given selector or return null.
      *
-     * @param  string  $selector
+     * @param string $selector
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
      */
     public function find($selector)
@@ -318,7 +334,8 @@ class ElementResolver
     /**
      * Get the first element matching the given selectors.
      *
-     * @param  array  $selectors
+     * @param array $selectors
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      */
     public function firstOrFail($selectors)
@@ -337,12 +354,13 @@ class ElementResolver
     /**
      * Find an element by the given selector or throw an exception.
      *
-     * @param  string  $selector
+     * @param string $selector
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement
      */
     public function findOrFail($selector)
     {
-        if (! is_null($element = $this->findById($selector))) {
+        if (!is_null($element = $this->findById($selector))) {
             return $element;
         }
 
@@ -354,7 +372,8 @@ class ElementResolver
     /**
      * Find the elements by the given selector or return an empty array.
      *
-     * @param  string  $selector
+     * @param string $selector
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement[]
      */
     public function all($selector)
@@ -373,7 +392,8 @@ class ElementResolver
     /**
      * Format the given selector with the current prefix.
      *
-     * @param  string  $selector
+     * @param string $selector
+     *
      * @return string
      */
     public function format($selector)

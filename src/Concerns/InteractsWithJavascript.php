@@ -7,7 +7,8 @@ trait InteractsWithJavascript
     /**
      * Execute JavaScript within the browser.
      *
-     * @param  string|array $scripts
+     * @param string|array $scripts
+     *
      * @return array
      */
     public function script($scripts)

@@ -2,10 +2,10 @@
 
 namespace Dusk\Tests;
 
-use Mockery;
-use StdClass;
-use PHPUnit\Framework\TestCase;
 use MadeITBelgium\Chrome\Concerns\ProvidesBrowser;
+use Mockery;
+use PHPUnit\Framework\TestCase;
+use StdClass;
 
 class ProvidesBrowserTest extends TestCase
 {
@@ -42,12 +42,12 @@ class ProvidesBrowserTest extends TestCase
     public function testData()
     {
         return [
-            ['foo']
+            ['foo'],
         ];
     }
 
     /**
-     * implementation of abstract ProvidesBrowser::driver()
+     * implementation of abstract ProvidesBrowser::driver().
      */
     protected function driver()
     {

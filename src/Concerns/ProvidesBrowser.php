@@ -4,10 +4,10 @@ namespace MadeITBelgium\Chrome\Concerns;
 
 use Closure;
 use Exception;
-use Throwable;
-use ReflectionFunction;
-use Laravel\Dusk\Browser;
 use Illuminate\Support\Collection;
+use Laravel\Dusk\Browser;
+use ReflectionFunction;
+use Throwable;
 
 trait ProvidesBrowser
 {
@@ -29,6 +29,7 @@ trait ProvidesBrowser
      * Tear down the Dusk test case class.
      *
      * @afterClass
+     *
      * @return void
      */
     public static function tearDownDuskClass()
@@ -43,7 +44,8 @@ trait ProvidesBrowser
     /**
      * Register an "after class" tear down callback.
      *
-     * @param  \Closure  $callback
+     * @param \Closure $callback
+     *
      * @return void
      */
     public static function afterClass(Closure $callback)
@@ -54,10 +56,12 @@ trait ProvidesBrowser
     /**
      * Create a new browser instance.
      *
-     * @param  \Closure  $callback
-     * @return \Laravel\Dusk\Browser|void
+     * @param \Closure $callback
+     *
      * @throws \Exception
      * @throws \Throwable
+     *
+     * @return \Laravel\Dusk\Browser|void
      */
     public function browse(Closure $callback)
     {
@@ -83,7 +87,8 @@ trait ProvidesBrowser
     /**
      * Create the browser instances needed for the given callback.
      *
-     * @param  \Closure  $callback
+     * @param \Closure $callback
+     *
      * @return array
      */
     protected function createBrowsersFor(Closure $callback)
@@ -104,7 +109,8 @@ trait ProvidesBrowser
     /**
      * Create a new Browser instance.
      *
-     * @param  \Facebook\WebDriver\Remote\RemoteWebDriver  $driver
+     * @param \Facebook\WebDriver\Remote\RemoteWebDriver $driver
+     *
      * @return \Laravel\Dusk\Browser
      */
     protected function newBrowser($driver)
@@ -115,7 +121,8 @@ trait ProvidesBrowser
     /**
      * Get the number of browsers needed for a given callback.
      *
-     * @param  \Closure  $callback
+     * @param \Closure $callback
+     *
      * @return int
      */
     protected function browsersNeededFor(Closure $callback)
@@ -126,7 +133,8 @@ trait ProvidesBrowser
     /**
      * Capture failure screenshots for each browser.
      *
-     * @param  \Illuminate\Support\Collection  $browsers
+     * @param \Illuminate\Support\Collection $browsers
+     *
      * @return void
      */
     protected function captureFailuresFor($browsers)
@@ -141,7 +149,8 @@ trait ProvidesBrowser
     /**
      * Store the console output for the given browsers.
      *
-     * @param  \Illuminate\Support\Collection  $browsers
+     * @param \Illuminate\Support\Collection $browsers
+     *
      * @return void
      */
     protected function storeConsoleLogsFor($browsers)
@@ -156,7 +165,8 @@ trait ProvidesBrowser
     /**
      * Close all of the browsers except the primary (first) one.
      *
-     * @param  \Illuminate\Support\Collection  $browsers
+     * @param \Illuminate\Support\Collection $browsers
+     *
      * @return \Illuminate\Support\Collection
      */
     protected function closeAllButPrimary($browsers)
