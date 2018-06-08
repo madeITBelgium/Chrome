@@ -132,7 +132,7 @@ trait ProvidesBrowser
     protected function captureFailuresFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName();
+            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getFileName();
 
             $browser->screenshot('failure-'.$name.'-'.$key);
         });
@@ -147,7 +147,7 @@ trait ProvidesBrowser
     protected function storeConsoleLogsFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName();
+            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getFileName();
 
             $browser->storeConsoleLog($name.'-'.$key);
         });
@@ -190,7 +190,7 @@ trait ProvidesBrowser
         }, 50);
     }
     
-    private function getName()
+    private function getFileName()
     {
         return date('Y_m_d-His') .rand();
     }
