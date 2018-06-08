@@ -11,10 +11,10 @@ class ComponentTest extends TestCase
         $driver = Mockery::mock(StdClass::class);
         $browser = new Browser($driver);
 
-        $browser->within($component = new TestComponent, function ($browser) {
+        $browser->within($component = new TestComponent(), function ($browser) {
             $this->assertTrue($browser->component->asserted);
 
-            $browser->within($nested = new TestNestedComponent, function () use ($nested) {
+            $browser->within($nested = new TestNestedComponent(), function () use ($nested) {
                 $this->assertTrue($nested->asserted);
             });
         });
@@ -25,10 +25,10 @@ class ComponentTest extends TestCase
         $driver = Mockery::mock(StdClass::class);
         $browser = new Browser($driver);
 
-        $browser->within($component = new TestComponent, function ($browser) use ($component) {
+        $browser->within($component = new TestComponent(), function ($browser) use ($component) {
             $this->assertEquals('body #component-root', $browser->resolver->prefix);
 
-            $browser->within($nested = new TestNestedComponent, function ($browser) use ($nested) {
+            $browser->within($nested = new TestNestedComponent(), function ($browser) use ($nested) {
                 $this->assertEquals('body #component-root #nested-root', $browser->resolver->prefix);
 
                 $browser->with('prefix', function ($browser) {
@@ -43,11 +43,11 @@ class ComponentTest extends TestCase
         $driver = Mockery::mock(StdClass::class);
         $browser = new Browser($driver);
 
-        $browser->within($component = new TestComponent, function ($browser) {
+        $browser->within($component = new TestComponent(), function ($browser) {
             $browser->doSomething();
             $this->assertTrue($browser->component->macroed);
 
-            $browser->within($nested = new TestNestedComponent, function ($browser) use ($nested) {
+            $browser->within($nested = new TestNestedComponent(), function ($browser) use ($nested) {
                 $browser->doSomething();
                 $this->assertTrue($nested->macroed);
             });
@@ -59,17 +59,17 @@ class ComponentTest extends TestCase
         $driver = Mockery::mock(StdClass::class);
         $browser = new Browser($driver);
 
-        $browser->within($component = new TestComponent, function ($browser) {
+        $browser->within($component = new TestComponent(), function ($browser) {
             $this->assertEquals([
-                '@component-alias' => '#component-alias',
+                '@component-alias'  => '#component-alias',
                 '@overridden-alias' => '#not-overridden',
             ], $browser->resolver->elements);
 
-            $browser->within($nested = new TestNestedComponent, function ($browser) use ($nested) {
+            $browser->within($nested = new TestNestedComponent(), function ($browser) use ($nested) {
                 $this->assertEquals([
-                    '@nested-alias' => '#nested-alias',
+                    '@nested-alias'     => '#nested-alias',
                     '@overridden-alias' => '#overridden',
-                    '@component-alias' => '#component-alias',
+                    '@component-alias'  => '#component-alias',
                 ], $browser->resolver->elements);
             });
         });
@@ -80,7 +80,7 @@ class ComponentTest extends TestCase
         $driver = Mockery::mock(StdClass::class);
         $browser = new Browser($driver);
 
-        $component = new TestComponent;
+        $component = new TestComponent();
         $component->selector = '@dusk-hook-root';
 
         $browser->within($component, function ($browser) {
@@ -93,7 +93,7 @@ class ComponentTest extends TestCase
         $driver = Mockery::mock(StdClass::class);
         $browser = new Browser($driver);
 
-        $component = new TestComponent;
+        $component = new TestComponent();
         $component->selector = '@component-alias';
 
         $browser->within($component, function ($browser) {
@@ -126,7 +126,7 @@ class TestComponent extends Component
     public function elements()
     {
         return [
-            '@component-alias' => '#component-alias',
+            '@component-alias'  => '#component-alias',
             '@overridden-alias' => '#not-overridden',
         ];
     }
@@ -155,7 +155,7 @@ class TestNestedComponent extends Component
     public function elements()
     {
         return [
-            '@nested-alias' => '#nested-alias',
+            '@nested-alias'     => '#nested-alias',
             '@overridden-alias' => '#overridden',
         ];
     }

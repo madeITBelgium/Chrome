@@ -1,8 +1,8 @@
 <?php
 
+use Facebook\WebDriver\Remote\WebDriverBrowserType;
 use MadeITBelgium\Chrome\Browser;
 use PHPUnit\Framework\TestCase;
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 class BrowserTest extends TestCase
 {

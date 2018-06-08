@@ -2,8 +2,8 @@
 
 namespace  MadeITBelgium\Chrome\Chrome;
 
-use RuntimeException;
 use Illuminate\Support\Str;
+use RuntimeException;
 use Symfony\Component\Process\Process;
 
 class ChromeProcess
@@ -11,21 +11,22 @@ class ChromeProcess
     /**
      * The path to the Chromedriver.
      *
-     * @var String
+     * @var string
      */
     protected $driver;
 
     /**
      * Create a new ChromeProcess instance.
      *
-     * @param  string  $driver
+     * @param string $driver
+     *
      * @return void
      */
     public function __construct($driver = null)
     {
         $this->driver = $driver;
 
-        if (! is_null($driver) && realpath($driver) === false) {
+        if (!is_null($driver) && realpath($driver) === false) {
             throw new RuntimeException("Invalid path to Chromedriver [{$driver}].");
         }
     }
@@ -61,9 +62,9 @@ class ChromeProcess
      */
     protected function process()
     {
-        return (new Process(
+        return new Process(
             [realpath($this->driver)], null, $this->chromeEnvironment()
-        ));
+        );
     }
 
     /**

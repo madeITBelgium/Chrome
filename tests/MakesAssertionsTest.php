@@ -324,7 +324,7 @@ class MakesAssertionsTest extends TestCase
             $this->fail();
         } catch (ExpectationFailedException $e) {
             $this->assertContains(
-                "Element [body foo] is not present.",
+                'Element [body foo] is not present.',
                 $e->getMessage()
             );
         }
