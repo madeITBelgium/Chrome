@@ -6,7 +6,7 @@ use Closure;
 use Exception;
 use Throwable;
 use ReflectionFunction;
-use Laravel\Dusk\Browser;
+use MadeITBelgium\Chrome\Browser;
 use Illuminate\Support\Collection;
 
 trait ProvidesBrowser
@@ -132,7 +132,7 @@ trait ProvidesBrowser
     protected function captureFailuresFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
+            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName();
 
             $browser->screenshot('failure-'.$name.'-'.$key);
         });
@@ -147,7 +147,7 @@ trait ProvidesBrowser
     protected function storeConsoleLogsFor($browsers)
     {
         $browsers->each(function ($browser, $key) {
-            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName(false);
+            $name = str_replace('\\', '_', get_class($this)).'_'.$this->getName();
 
             $browser->storeConsoleLog($name.'-'.$key);
         });
@@ -188,6 +188,11 @@ trait ProvidesBrowser
         return retry(5, function () {
             return $this->driver();
         }, 50);
+    }
+    
+    private function getName()
+    {
+        return date('Y_m_d-His') .rand();
     }
 
     /**

@@ -4,6 +4,7 @@ namespace MadeITBelgium\Chrome;
 
 use Exception;
 use MadeITBelgium\Chrome\Chrome\SupportsChrome;
+use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 
@@ -14,18 +15,22 @@ class ChromeBrowser
 
     private $url;
     
+    private $mobile = false;
+    
     /**
      * Register the base URL with Dusk.
      *
      * @return void
      */
-    protected function setUp($url)
+    function setUp($url, $mobile = false)
     {
         $this->url = $url;
         
+        $this->mobile = $mobile;
+        
         Browser::$baseUrl = $this->url;
 
-        Browser::$storeScreenshotsAt = base_path('storate/app/chrome/screenshots');
+        Browser::$storeScreenshotsAt = base_path('storage/app/chrome/screenshots');
 
         Browser::$storeConsoleLogAt = base_path('storage/app/chrome/console');
     }
@@ -35,17 +40,36 @@ class ChromeBrowser
      *
      * @return \Facebook\WebDriver\Remote\RemoteWebDriver
      */
-    protected function driver()
+    function driver()
     {
-        $options = (new ChromeOptions)->addArguments([
-            '--disable-gpu',
-            '--headless'
-        ]);
+        if(!$this->mobile) {
+            $options = (new ChromeOptions)->addArguments([
+                '--disable-gpu',
+                '--headless',
+                '--verbose',
+                '--log-path=' . storage_path("logs/chromedriver-errors.log"),
+            ]);
+            
+            return RemoteWebDriver::create(
+                'http://localhost:9515', DesiredCapabilities::chrome()->setCapability(
+                    ChromeOptions::CAPABILITY, $options
+                )
+            );
+        }
+        else {
+            $ua = 'Mozilla/5.0 (iPhone; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.25 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1';
+            $capabilities = DesiredCapabilities::chrome();
+            $options = (new ChromeOptions)->addArguments([
+                '--disable-gpu',
+                '--headless',
+                '--verbose',
+                '--log-path=' . storage_path("logs/chromedriver-errors.log"),
+            ]);
+            $options->setExperimentalOption('mobileEmulation', ['userAgent' => $ua]);
 
-        return RemoteWebDriver::create(
-            'http://localhost:9515', DesiredCapabilities::chrome()->setCapability(
-                ChromeOptions::CAPABILITY, $options
-            )
-        );
+            return RemoteWebDriver::create(
+                'http://localhost:9515', $options->toCapabilities()
+            );
+        }
     }
 }

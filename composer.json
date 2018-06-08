@@ -1,4 +1,5 @@
 {
+    "version": "0.1",
     "name": "madeitbelgium/chrome",
     "description": "Laravel Chrome browser provides simple browser interaction for automation.",
     "keywords": ["webdriver"],
