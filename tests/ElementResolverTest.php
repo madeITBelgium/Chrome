@@ -1,7 +1,7 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use MadeITBelgium\Chrome\ElementResolver;
+use PHPUnit\Framework\TestCase;
 
 class ElementResolverTest extends TestCase
 {
@@ -113,20 +113,20 @@ class ElementResolverTest extends TestCase
 
     public function test_format_correctly_formats_selectors()
     {
-        $resolver = new ElementResolver(new StdClass);
+        $resolver = new ElementResolver(new StdClass());
         $this->assertEquals('body #modal', $resolver->format('#modal'));
 
-        $resolver = new ElementResolver(new StdClass, 'prefix');
+        $resolver = new ElementResolver(new StdClass(), 'prefix');
         $this->assertEquals('prefix #modal', $resolver->format('#modal'));
 
-        $resolver = new ElementResolver(new StdClass, 'prefix');
+        $resolver = new ElementResolver(new StdClass(), 'prefix');
         $resolver->pageElements(['@modal' => '#modal']);
         $this->assertEquals('prefix #modal', $resolver->format('@modal'));
 
-        $resolver = new ElementResolver(new StdClass, 'prefix');
+        $resolver = new ElementResolver(new StdClass(), 'prefix');
         $resolver->pageElements([
-            '@modal' => '#first',
-            '@modal-second' => '#second'
+            '@modal'        => '#first',
+            '@modal-second' => '#second',
         ]);
         $this->assertEquals('prefix #first', $resolver->format('@modal'));
         $this->assertEquals('prefix #second', $resolver->format('@modal-second'));

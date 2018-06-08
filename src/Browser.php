@@ -2,12 +2,12 @@
 
 namespace MadeITBelgium\Chrome;
 
-use Closure;
 use BadMethodCallException;
+use Closure;
+use Facebook\WebDriver\Remote\WebDriverBrowserType;
+use Facebook\WebDriver\WebDriverDimension;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
-use Facebook\WebDriver\WebDriverDimension;
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 class Browser
 {
@@ -89,8 +89,9 @@ class Browser
     /**
      * Create a browser instance.
      *
-     * @param  \Facebook\WebDriver\Remote\RemoteWebDriver  $driver
-     * @param  ElementResolver  $resolver
+     * @param \Facebook\WebDriver\Remote\RemoteWebDriver $driver
+     * @param ElementResolver                            $resolver
+     *
      * @return void
      */
     public function __construct($driver, $resolver = null)
@@ -103,7 +104,8 @@ class Browser
     /**
      * Browse to the given URL.
      *
-     * @param  string  $url
+     * @param string $url
+     *
      * @return $this
      */
     public function visit($url)
@@ -111,15 +113,15 @@ class Browser
         // If the URL does not start with http or https, then we will prepend the base
         // URL onto the URL and navigate to the URL. This will actually navigate to
         // the URL in the browser. Then we will be ready to make assertions, etc.
-        if (! Str::startsWith($url, ['http://', 'https://'])) {
+        if (!Str::startsWith($url, ['http://', 'https://'])) {
             $url = static::$baseUrl.'/'.ltrim($url, '/');
         }
 
         $this->driver->navigate()->to($url);
-        
+
         return $this;
     }
-    
+
     /**
      * Refresh the page.
      *
@@ -159,8 +161,9 @@ class Browser
     /**
      * Resize the browser window.
      *
-     * @param  int  $width
-     * @param  int  $height
+     * @param int $width
+     * @param int $height
+     *
      * @return $this
      */
     public function resize($width, $height)
@@ -175,7 +178,8 @@ class Browser
     /**
      * Take a screenshot and store it with the given name.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return $this
      */
     public function screenshot($name)
@@ -190,7 +194,8 @@ class Browser
     /**
      * Store the console output with the given name.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return $this
      */
     public function storeConsoleLog($name)
@@ -200,8 +205,7 @@ class Browser
 
             if (!empty($console)) {
                 file_put_contents(
-                    sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name)
-                    , json_encode($console, JSON_PRETTY_PRINT)
+                    sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name), json_encode($console, JSON_PRETTY_PRINT)
                 );
             }
         }
@@ -212,8 +216,9 @@ class Browser
     /**
      * Execute a Closure with a scoped browser instance.
      *
-     * @param  string  $selector
-     * @param  \Closure  $callback
+     * @param string   $selector
+     * @param \Closure $callback
+     *
      * @return $this
      */
     public function within($selector, Closure $callback)
@@ -224,8 +229,9 @@ class Browser
     /**
      * Execute a Closure with a scoped browser instance.
      *
-     * @param  string  $selector
-     * @param  \Closure  $callback
+     * @param string   $selector
+     * @param \Closure $callback
+     *
      * @return $this
      */
     public function with($selector, Closure $callback)
@@ -268,7 +274,7 @@ class Browser
      */
     public function ensurejQueryIsAvailable()
     {
-        if ($this->driver->executeScript("return window.jQuery == null")) {
+        if ($this->driver->executeScript('return window.jQuery == null')) {
             $this->driver->executeScript(file_get_contents(__DIR__.'/../bin/jquery.js'));
         }
     }
@@ -276,7 +282,8 @@ class Browser
     /**
      * Pause for the given amount of milliseconds.
      *
-     * @param  int  $milliseconds
+     * @param int $milliseconds
+     *
      * @return $this
      */
     public function pause($milliseconds)
@@ -299,7 +306,8 @@ class Browser
     /**
      * Tap the browser into a callback.
      *
-     * @param  \Closure  $callback
+     * @param \Closure $callback
+     *
      * @return $this
      */
     public function tap($callback)
@@ -327,8 +335,8 @@ class Browser
     public function tinker()
     {
         \Psy\Shell::debug([
-            'browser' => $this,
-            'driver' => $this->driver,
+            'browser'  => $this,
+            'driver'   => $this->driver,
             'resolver' => $this->resolver,
         ], $this);
 
@@ -348,8 +356,9 @@ class Browser
     /**
      * Dynamically call a method on the browser.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array  $parameters
+     *
      * @return mixed
      */
     public function __call($method, $parameters)

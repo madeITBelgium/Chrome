@@ -2,18 +2,19 @@
 
 namespace MadeITBelgium\Chrome\Concerns;
 
-use Illuminate\Support\Str;
+use Facebook\WebDriver\Interactions\WebDriverActions;
+use Facebook\WebDriver\Remote\LocalFileDetector;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverKeys;
-use Facebook\WebDriver\Remote\LocalFileDetector;
-use Facebook\WebDriver\Interactions\WebDriverActions;
+use Illuminate\Support\Str;
 
 trait InteractsWithElements
 {
     /**
      * Get all of the elements matching the given selector.
      *
-     * @param  string  $selector
+     * @param string $selector
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement[]
      */
     public function elements($selector)
@@ -24,7 +25,8 @@ trait InteractsWithElements
     /**
      * Get the element matching the given selector.
      *
-     * @param  string  $selector
+     * @param string $selector
+     *
      * @return \Facebook\WebDriver\Remote\RemoteWebElement|null
      */
     public function element($selector)
@@ -35,11 +37,12 @@ trait InteractsWithElements
     /**
      * Click the link with the given text.
      *
-     * @param  string  $link
-     * @param  string  $element
+     * @param string $link
+     * @param string $element
+     *
      * @return $this
      */
-    public function clickLink($link, $element = "a")
+    public function clickLink($link, $element = 'a')
     {
         $this->ensurejQueryIsAvailable();
 
@@ -53,8 +56,9 @@ trait InteractsWithElements
     /**
      * Directly get or set the value attribute of an input field.
      *
-     * @param  string  $selector
-     * @param  string|null  $value
+     * @param string      $selector
+     * @param string|null $value
+     *
      * @return $this
      */
     public function value($selector, $value = null)
@@ -75,7 +79,8 @@ trait InteractsWithElements
     /**
      * Get the text of the element matching the given selector.
      *
-     * @param  string  $selector
+     * @param string $selector
+     *
      * @return string
      */
     public function text($selector)
@@ -86,8 +91,9 @@ trait InteractsWithElements
     /**
      * Get the given attribute from the element matching the given selector.
      *
-     * @param  string  $selector
-     * @param  string  $attribute
+     * @param string $selector
+     * @param string $attribute
+     *
      * @return string
      */
     public function attribute($selector, $attribute)
@@ -98,8 +104,9 @@ trait InteractsWithElements
     /**
      * Send the given keys to the element matching the given selector.
      *
-     * @param  string  $selector
-     * @param  dynamic  $keys
+     * @param string  $selector
+     * @param dynamic $keys
+     *
      * @return $this
      */
     public function keys($selector, ...$keys)
@@ -112,7 +119,8 @@ trait InteractsWithElements
     /**
      * Parse the keys before sending to the keyboard.
      *
-     * @param  array  $keys
+     * @param array $keys
+     *
      * @return array
      */
     protected function parseKeys($keys)
@@ -133,8 +141,9 @@ trait InteractsWithElements
     /**
      * Type the given value in the given field.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param string $field
+     * @param string $value
+     *
      * @return $this
      */
     public function type($field, $value)
@@ -147,8 +156,9 @@ trait InteractsWithElements
     /**
      * Type the given value in the given field without clearing it.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param string $field
+     * @param string $value
+     *
      * @return $this
      */
     public function append($field, $value)
@@ -161,7 +171,8 @@ trait InteractsWithElements
     /**
      * Clear the given field.
      *
-     * @param  string  $field
+     * @param string $field
+     *
      * @return $this
      */
     public function clear($field)
@@ -174,8 +185,9 @@ trait InteractsWithElements
     /**
      * Select the given value or random value of a drop-down field.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param string $field
+     * @param string $value
+     *
      * @return $this
      */
     public function select($field, $value = null)
@@ -202,8 +214,9 @@ trait InteractsWithElements
     /**
      * Select the given value of a radio button field.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param string $field
+     * @param string $value
+     *
      * @return $this
      */
     public function radio($field, $value)
@@ -216,15 +229,16 @@ trait InteractsWithElements
     /**
      * Check the given checkbox.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param string $field
+     * @param string $value
+     *
      * @return $this
      */
     public function check($field, $value = null)
     {
         $element = $this->resolver->resolveForChecking($field, $value);
 
-        if (! $element->isSelected()) {
+        if (!$element->isSelected()) {
             $element->click();
         }
 
@@ -234,8 +248,9 @@ trait InteractsWithElements
     /**
      * Uncheck the given checkbox.
      *
-     * @param  string  $field
-     * @param  string  $value
+     * @param string $field
+     * @param string $value
+     *
      * @return $this
      */
     public function uncheck($field, $value = null)
@@ -252,15 +267,16 @@ trait InteractsWithElements
     /**
      * Attach the given file to the field.
      *
-     * @param  string  $field
-     * @param  string  $path
+     * @param string $field
+     * @param string $path
+     *
      * @return $this
      */
     public function attach($field, $path)
     {
         $element = $this->resolver->resolveForAttachment($field);
 
-        $element->setFileDetector(new LocalFileDetector)->sendKeys($path);
+        $element->setFileDetector(new LocalFileDetector())->sendKeys($path);
 
         return $this;
     }
@@ -268,7 +284,8 @@ trait InteractsWithElements
     /**
      * Press the button with the given text or name.
      *
-     * @param  string  $button
+     * @param string $button
+     *
      * @return $this
      */
     public function press($button)
@@ -281,8 +298,9 @@ trait InteractsWithElements
     /**
      * Press the button with the given text or name.
      *
-     * @param  string  $button
-     * @param  int  $seconds
+     * @param string $button
+     * @param int    $seconds
+     *
      * @return $this
      */
     public function pressAndWaitFor($button, $seconds = 5)
@@ -299,8 +317,9 @@ trait InteractsWithElements
     /**
      * Drag an element to another element using selectors.
      *
-     * @param  string  $from
-     * @param  string  $to
+     * @param string $from
+     * @param string $to
+     *
      * @return $this
      */
     public function drag($from, $to)
@@ -315,8 +334,9 @@ trait InteractsWithElements
     /**
      * Drag an element up.
      *
-     * @param  string  $selector
-     * @param  int  $offset
+     * @param string $selector
+     * @param int    $offset
+     *
      * @return $this
      */
     public function dragUp($selector, $offset)
@@ -327,8 +347,9 @@ trait InteractsWithElements
     /**
      * Drag an element down.
      *
-     * @param  string  $selector
-     * @param  int  $offset
+     * @param string $selector
+     * @param int    $offset
+     *
      * @return $this
      */
     public function dragDown($selector, $offset)
@@ -339,8 +360,9 @@ trait InteractsWithElements
     /**
      * Drag an element to the left.
      *
-     * @param  string  $selector
-     * @param  int  $offset
+     * @param string $selector
+     * @param int    $offset
+     *
      * @return $this
      */
     public function dragLeft($selector, $offset)
@@ -351,8 +373,9 @@ trait InteractsWithElements
     /**
      * Drag an element to the right.
      *
-     * @param  string  $selector
-     * @param  int  $offset
+     * @param string $selector
+     * @param int    $offset
+     *
      * @return $this
      */
     public function dragRight($selector, $offset)
@@ -363,9 +386,10 @@ trait InteractsWithElements
     /**
      * Drag an element by the given offset.
      *
-     * @param  string  $selector
-     * @param  int  $x
-     * @param  int  $y
+     * @param string $selector
+     * @param int    $x
+     * @param int    $y
+     *
      * @return $this
      */
     public function dragOffset($selector, $x = 0, $y = 0)
@@ -392,7 +416,8 @@ trait InteractsWithElements
     /**
      * Type the given value in an open JavaScript prompt dialog.
      *
-     * @param  string  $value
+     * @param string $value
+     *
      * @return $this
      */
     public function typeInDialog($value)
