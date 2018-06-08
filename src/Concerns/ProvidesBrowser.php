@@ -199,13 +199,8 @@ trait ProvidesBrowser
             return $this->driver();
         }, 50);
     }
-<<<<<<< HEAD
     
     private function getFileName()
-=======
-
-    private function getName()
->>>>>>> 85f088c39b0d751369498598a9424c6498d7265a
     {
         return date('Y_m_d-His').rand();
     }
