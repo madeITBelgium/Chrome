@@ -199,7 +199,7 @@ trait ProvidesBrowser
             return $this->driver();
         }, 50);
     }
-    
+
     private function getFileName()
     {
         return date('Y_m_d-His').rand();
