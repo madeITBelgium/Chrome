@@ -14,7 +14,8 @@ abstract class Component
     /**
      * Assert that the current page contains this component.
      *
-     * @param  \MadeITBelgium\Chrome\Browser  $browser
+     * @param \MadeITBelgium\Chrome\Browser $browser
+     *
      * @return void
      */
     public function assert(Browser $browser)

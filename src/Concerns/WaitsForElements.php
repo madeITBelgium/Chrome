@@ -2,22 +2,23 @@
 
 namespace MadeITBelgium\Chrome\Concerns;
 
+use Carbon\Carbon;
 use Closure;
 use Exception;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
-use Facebook\WebDriver\Exception\TimeOutException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
+use Facebook\WebDriver\Exception\TimeOutException;
 use Facebook\WebDriver\WebDriverExpectedCondition;
+use Illuminate\Support\Str;
 
 trait WaitsForElements
 {
     /**
      * Execute the given callback in a scoped browser once the selector is available.
      *
-     * @param  string  $selector
-     * @param  Closure  $callback
-     * @param  int  $seconds
+     * @param string  $selector
+     * @param Closure $callback
+     * @param int     $seconds
+     *
      * @return $this
      */
     public function whenAvailable($selector, Closure $callback, $seconds = null)
@@ -28,8 +29,9 @@ trait WaitsForElements
     /**
      * Wait for the given selector to be visible.
      *
-     * @param  string  $selector
-     * @param  int  $seconds
+     * @param string $selector
+     * @param int    $seconds
+     *
      * @return $this
      */
     public function waitFor($selector, $seconds = null)
@@ -42,15 +44,16 @@ trait WaitsForElements
     /**
      * Wait for the given selector to be removed.
      *
-     * @param  string  $selector
-     * @param  int  $seconds
+     * @param string $selector
+     * @param int    $seconds
+     *
      * @return $this
      */
     public function waitUntilMissing($selector, $seconds = null)
     {
         return $this->waitUsing($seconds, 100, function () use ($selector) {
             try {
-                $missing = ! $this->resolver->findOrFail($selector)->isDisplayed();
+                $missing = !$this->resolver->findOrFail($selector)->isDisplayed();
             } catch (NoSuchElementException $e) {
                 $missing = true;
             }
@@ -62,8 +65,9 @@ trait WaitsForElements
     /**
      * Wait for the given text to be visible.
      *
-     * @param  string  $text
-     * @param  int  $seconds
+     * @param string $text
+     * @param int    $seconds
+     *
      * @return $this
      */
     public function waitForText($text, $seconds = null)
@@ -76,8 +80,9 @@ trait WaitsForElements
     /**
      * Wait for the given link to be visible.
      *
-     * @param  string  $link
-     * @param  int  $seconds
+     * @param string $link
+     * @param int    $seconds
+     *
      * @return $this
      */
     public function waitForLink($link, $seconds = null)
@@ -90,8 +95,9 @@ trait WaitsForElements
     /**
      * Wait for the given location.
      *
-     * @param  string  $path
-     * @param  int  $seconds
+     * @param string $path
+     * @param int    $seconds
+     *
      * @return $this
      */
     public function waitForLocation($path, $seconds = null)
@@ -102,9 +108,10 @@ trait WaitsForElements
     /**
      * Wait for the given location using a named route.
      *
-     * @param  string  $route
-     * @param  array  $parameters
-     * @param  int  $seconds
+     * @param string $route
+     * @param array  $parameters
+     * @param int    $seconds
+     *
      * @return $this
      */
     public function waitForRoute($route, $parameters = [], $seconds = null)
@@ -115,17 +122,18 @@ trait WaitsForElements
     /**
      * Wait until the given script returns true.
      *
-     * @param  string  $script
-     * @param  int  $seconds
+     * @param string $script
+     * @param int    $seconds
+     *
      * @return $this
      */
     public function waitUntil($script, $seconds = null)
     {
-        if (! Str::startsWith($script, 'return ')) {
+        if (!Str::startsWith($script, 'return ')) {
             $script = 'return '.$script;
         }
 
-        if (! Str::endsWith($script, ';')) {
+        if (!Str::endsWith($script, ';')) {
             $script = $script.';';
         }
 
@@ -137,7 +145,8 @@ trait WaitsForElements
     /**
      * Wait for a JavaScript dialog to open.
      *
-     * @param  int  $seconds
+     * @param int $seconds
+     *
      * @return $this
      */
     public function waitForDialog($seconds = null)
@@ -154,8 +163,9 @@ trait WaitsForElements
     /**
      * Wait for the current page to reload.
      *
-     * @param  Closure  $callback
-     * @param  int  $seconds
+     * @param Closure $callback
+     * @param int     $seconds
+     *
      * @return $this
      */
     public function waitForReload($callback = null, $seconds = null)
@@ -176,12 +186,14 @@ trait WaitsForElements
     /**
      * Wait for the given callback to be true.
      *
-     * @param  int  $seconds
-     * @param  int  $interval
-     * @param  Closure  $callback
-     * @param  string|null  $message
-     * @return $this
+     * @param int         $seconds
+     * @param int         $interval
+     * @param Closure     $callback
+     * @param string|null $message
+     *
      * @throws TimeOutException
+     *
+     * @return $this
      */
     public function waitUsing($seconds, $interval, Closure $callback, $message = null)
     {
