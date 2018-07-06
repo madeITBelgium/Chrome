@@ -12,9 +12,9 @@ class ChromeBrowser
     use Concerns\ProvidesBrowser,
         SupportsChrome;
 
-    private $url;
+    public $url;
 
-    private $mobile = false;
+    public $mobile = false;
 
     /**
      * Register the base URL with Dusk.
