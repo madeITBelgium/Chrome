@@ -8,10 +8,10 @@ sudo: false
 
 cache:
   directories:
-   - composer
+   - vendor
 
 install:
-- travis_retry composer install --dev --no-interaction --prefer-source
+- travis_retry composer install --no-interaction --prefer-source
 
 script:
 - ./vendor/bin/phpunit --coverage-clover tests/logs/clover.xml
