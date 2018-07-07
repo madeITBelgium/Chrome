@@ -75,16 +75,16 @@ class ComponentTest extends TestCase
         });
     }
 
-    public function test_root_selector_can_be_dusk_hook()
+    public function test_root_selector_can_be_chrome_hook()
     {
         $driver = Mockery::mock(StdClass::class);
         $browser = new Browser($driver);
 
         $component = new TestComponent();
-        $component->selector = '@dusk-hook-root';
+        $component->selector = '@chrome-hook-root';
 
         $browser->within($component, function ($browser) {
-            $this->assertEquals('body [dusk="dusk-hook-root"]', $browser->resolver->prefix);
+            $this->assertEquals('body [chrome="chrome-hook-root"]', $browser->resolver->prefix);
         });
     }
 
