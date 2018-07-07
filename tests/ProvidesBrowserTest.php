@@ -1,6 +1,6 @@
 <?php
 
-namespace Dusk\Tests;
+namespace MadeITBelgium\Chrome\Tests;
 
 use MadeITBelgium\Chrome\Concerns\ProvidesBrowser;
 use Mockery;
@@ -18,7 +18,7 @@ class ProvidesBrowserTest extends TestCase
     {
         $browser = Mockery::mock(StdClass::class);
         $browser->shouldReceive('screenshot')->with(
-            'failure-Dusk_Tests_ProvidesBrowserTest_test_capture_failures_for-0'
+            'failure-MadeITBelgium_Chrome_Tests_ProvidesBrowserTest_test_capture_failures_for-0'
         );
         $browsers = collect([$browser]);
 
@@ -32,7 +32,7 @@ class ProvidesBrowserTest extends TestCase
     {
         $browser = Mockery::mock(StdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
-            'Dusk_Tests_ProvidesBrowserTest_test_store_console_logs_for-0'
+            'MadeITBelgium_Chrome_Tests_ProvidesBrowserTest_test_store_console_logs_for-0'
         );
         $browsers = collect([$browser]);
 
