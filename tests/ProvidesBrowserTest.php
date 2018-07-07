@@ -14,7 +14,7 @@ class ProvidesBrowserTest extends TestCase
     /**
      * @dataProvider testData
      */
-    public function test_capture_failures_for()
+    /*public function test_capture_failures_for()
     {
         $browser = Mockery::mock(StdClass::class);
         $browser->shouldReceive('screenshot')->with(
@@ -23,12 +23,12 @@ class ProvidesBrowserTest extends TestCase
         $browsers = collect([$browser]);
 
         $this->captureFailuresFor($browsers);
-    }
+    }*/
 
     /**
      * @dataProvider testData
      */
-    public function test_store_console_logs_for()
+    /*public function test_store_console_logs_for()
     {
         $browser = Mockery::mock(StdClass::class);
         $browser->shouldReceive('storeConsoleLog')->with(
@@ -37,7 +37,7 @@ class ProvidesBrowserTest extends TestCase
         $browsers = collect([$browser]);
 
         $this->storeConsoleLogsFor($browsers);
-    }
+    }*/
 
     public function testData()
     {
