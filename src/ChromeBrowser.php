@@ -45,7 +45,6 @@ class ChromeBrowser
             $options = (new ChromeOptions())->addArguments([
                 '--disable-gpu',
                 '--headless',
-                '--verbose',
                 '--log-path='.storage_path('logs/chromedriver-errors.log'),
             ]);
 
@@ -55,12 +54,11 @@ class ChromeBrowser
                 )
             );
         } else {
-            $ua = 'Mozilla/5.0 (iPhone; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.25 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1';
+            $ua = 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) CriOS/67.0.3396.87 Mobile/15E216 Safari/604.1';
             $capabilities = DesiredCapabilities::chrome();
             $options = (new ChromeOptions())->addArguments([
                 '--disable-gpu',
                 '--headless',
-                '--verbose',
                 '--log-path='.storage_path('logs/chromedriver-errors.log'),
             ]);
             $options->setExperimentalOption('mobileEmulation', ['userAgent' => $ua]);
