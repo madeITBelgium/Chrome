@@ -6,11 +6,15 @@ php:
 
 sudo: false
 
+cache:
+  directories:
+   - composer
+
 install:
-- travis_retry composer install --no-interaction --prefer-source
+- travis_retry composer install --dev --no-interaction --prefer-source
 
 script:
 - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
  
 after_script:
-- php vendor/bin/coveralls -v
+  - travis_retry php vendor/bin/php-coveralls -v
