@@ -17,7 +17,7 @@ class ChromeBrowser
     public $mobile = false;
 
     /**
-     * Register the base URL with Dusk.
+     * Register the base URL.
      *
      * @return void
      */
