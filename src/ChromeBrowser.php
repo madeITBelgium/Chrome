@@ -45,29 +45,30 @@ class ChromeBrowser
         if ($this->mobile) {
             $ua = 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_4_1 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) CriOS/67.0.3396.87 Mobile/15G77 Safari/604.1';
         }
-        
+
         $capabilities = DesiredCapabilities::chrome();
         $options = (new ChromeOptions())->addArguments([
             '--disable-gpu',
             '--headless',
             '--verbose',
-            '--user-agent="' . $ua . '"',
+            '--user-agent="'.$ua.'"',
             '--log-path='.storage_path('logs/chromedriver-errors.log'),
         ]);
-        
-        if($this->mobile) {
+
+        if ($this->mobile) {
             $options->setExperimentalOption('mobileEmulation', ['userAgent' => $ua]);
         }
-        
+
         $capabilities = DesiredCapabilities::chrome()->setCapability(
             ChromeOptions::CAPABILITY, $options
         );
 
-        if($this->extraCapabilities !== null) {
-            foreach($this->extraCapabilities as $name => $value) {
+        if ($this->extraCapabilities !== null) {
+            foreach ($this->extraCapabilities as $name => $value) {
                 $capabilities->setCapability($name, $value);
             }
         }
+
         return RemoteWebDriver::create(
             'http://localhost:9515', $capabilities
         );
