@@ -21,13 +21,13 @@ class ChromeBrowser
      *
      * @return void
      */
-    public function setUp($url, $mobile = false)
+    public function setUp($url, $mobile = false, $extraCapabilities = [])
     {
         $this->url = $url;
 
         $this->mobile = $mobile;
-
-        Browser::$baseUrl = $this->url;
+        
+        $this->extraCapabilities = $extraCapabilities;
 
         Browser::$storeScreenshotsAt = base_path('storage/app/chrome/screenshots');
 
