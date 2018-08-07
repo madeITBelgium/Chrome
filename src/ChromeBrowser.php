@@ -26,7 +26,7 @@ class ChromeBrowser
         $this->url = $url;
 
         $this->mobile = $mobile;
-        
+
         $this->extraCapabilities = $extraCapabilities;
 
         Browser::$storeScreenshotsAt = base_path('storage/app/chrome/screenshots');
