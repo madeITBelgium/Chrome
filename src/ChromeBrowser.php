@@ -18,8 +18,6 @@ class ChromeBrowser
 
     private $extraCapabilities = null;
 
-    public $mobile = false;
-
     /**
      * Register the base URL.
      *
