@@ -9,15 +9,15 @@ use MadeITBelgium\Chrome\Chrome\SupportsChrome;
 
 class ChromeBrowser
 {
-    use Concerns\ProvidesBrowser,
-        SupportsChrome;
+    use Concerns\ProvidesBrowser;
+    use SupportsChrome;
 
     public $url;
 
     private $mobile = false;
-    
+
     private $extraCapabilities = null;
-    
+
     public $mobile = false;
 
     /**
@@ -30,7 +30,7 @@ class ChromeBrowser
         $this->url = $url;
 
         $this->mobile = $mobile;
-        
+
         $this->extraCapabilities = $extraCapabilities;
 
         $this->extraCapabilities = $extraCapabilities;
@@ -51,7 +51,7 @@ class ChromeBrowser
         if ($this->mobile) {
             $ua = 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_4_1 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) CriOS/67.0.3396.87 Mobile/15G77 Safari/604.1';
         }
-        
+
         $capabilities = DesiredCapabilities::chrome();
         $options = (new ChromeOptions())->addArguments([
             '--disable-gpu',
