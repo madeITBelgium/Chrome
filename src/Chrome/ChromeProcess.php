@@ -82,7 +82,7 @@ class ChromeProcess
     }
 
     /**
-     * Determine if Dusk is running on Windows or Windows Subsystem for Linux.
+     * Determine if chrome is running on Windows or Windows Subsystem for Linux.
      *
      * @return bool
      */
@@ -92,7 +92,7 @@ class ChromeProcess
     }
 
     /**
-     * Determine if Dusk is running on Mac.
+     * Determine if chrome is running on Mac.
      *
      * @return bool
      */

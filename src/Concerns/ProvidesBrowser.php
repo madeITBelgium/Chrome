@@ -26,22 +26,6 @@ trait ProvidesBrowser
     protected static $afterClassCallbacks = [];
 
     /**
-     * Tear down the Dusk test case class.
-     *
-     * @afterClass
-     *
-     * @return void
-     */
-    public static function tearDownDuskClass()
-    {
-        static::closeAll();
-
-        foreach (static::$afterClassCallbacks as $callback) {
-            $callback();
-        }
-    }
-
-    /**
      * Register an "after class" tear down callback.
      *
      * @param \Closure $callback
@@ -61,7 +45,7 @@ trait ProvidesBrowser
      * @throws \Exception
      * @throws \Throwable
      *
-     * @return \Laravel\Dusk\Browser|void
+     * @return \MadeITBelgium\Chrome\Browser|void
      */
     public function browse(Closure $callback)
     {
@@ -111,7 +95,7 @@ trait ProvidesBrowser
      *
      * @param \Facebook\WebDriver\Remote\RemoteWebDriver $driver
      *
-     * @return \Laravel\Dusk\Browser
+     * @return \MadeITBelgium\Chrome\Browser
      */
     protected function newBrowser($driver)
     {
@@ -199,7 +183,7 @@ trait ProvidesBrowser
             return $this->driver();
         }, 50);
     }
-    
+
     private function getFileName()
     {
         return date('Y_m_d-His').rand();

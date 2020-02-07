@@ -20,22 +20,83 @@ Require this package in your `composer.json` and update composer.
 ## Usage
 ```php
 $chromebrowser = new \MadeITBelgium\Chrome\ChromeBrowser();
-$chromebrowser->setUp($url);
+$chromebrowser->setUp($url, false); //False = desktop
+$chromebrowser->startChromeDriver();
 
 $chromebrowser->browse(function (Browser $browser) {
     $browser->visit('https://www.example.com');
 });
+
+
+$chromebrowser->closeAll();
+$chromebrowser->stopChromeDriver();
+```
+
+## Override default settings
+To override the default settings you can create your own class that extends the MadeITBelgium\Chrome\ChromeBrowser class. In your own class you need to override the driver function.
+```php
+<?php
+
+namespace App;
+
+use MadeITBelgium\Chrome\ChromeBrowser as ChromeBrowserParent;
+
+use Facebook\WebDriver\Chrome\ChromeOptions;
+use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use MadeITBelgium\Chrome\Chrome\SupportsChrome;
+use Facebook\WebDriver\Remote\WebDriverCapabilityType;
+
+class ChromeBrowser extends ChromeBrowserParent
+{
+    public function driver()
+    {
+        $driverLocation = 'http://localhost:9515';
+        //$driverLocation = 'http://localhost:4444/wd/hub';
+        
+        $args = [
+            '--disable-gpu',
+            '--headless',
+            '--no-sandbox',
+        ];
+        
+        $options = (new ChromeOptions())->addArguments($args);
+         $ua = 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) CriOS/67.0.3396.87 Mobile/15E216 Safari/604.1';
+        $options->setExperimentalOption('mobileEmulation', ['userAgent' => $ua]);
+        $capabilities = DesiredCapabilities::chrome()->setCapability(ChromeOptions::CAPABILITY, $options);
+        $capabilities->setCapability('proxy', [
+            'proxyType' => 'manual',
+            'httpProxy' => 'http://proxyserver:3128',
+            'sslProxy' => 'http://proxyserver:3128',
+        ]);
+        
+        return RemoteWebDriver::create($driverLocation, $capabilities);
+    }
+}
+```
+
+```php
+$chromebrowser = new \App\ChromeBrowser();
+$chromebrowser->setUp($url);
+$chromebrowser->startChromeDriver();
+
+$chromebrowser->browse(function (Browser $browser) {
+    $browser->visit('https://www.example.com');
+});
+
+
+$chromebrowser->closeAll();
+$chromebrowser->stopChromeDriver();
 ```
 
 The complete documentation can be found at: [http://www.madeit.be/](http://www.madeit.be/)
 
-# Support
 
+# Support
 Support github or mail: tjebbe.lievens@madeit.be
 
 # Contributing
-
 Please try to follow the psr-2 coding style guide. http://www.php-fig.org/psr/psr-2/
-# License
 
+# License
 This package is licensed under LGPL. You are free to use it in personal and commercial projects. The code can be forked and modified, but the original copyright author should always be included!

@@ -407,7 +407,7 @@ class ElementResolver
         );
 
         if (starts_with($selector, '@') && $selector === $originalSelector) {
-            $selector = '[dusk="'.explode('@', $selector)[1].'"]';
+            $selector = '[chrome="'.explode('@', $selector)[1].'"]';
         }
 
         return trim($this->prefix.' '.$selector);

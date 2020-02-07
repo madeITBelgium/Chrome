@@ -12,18 +12,20 @@ class ChromeBrowser
     use Concerns\ProvidesBrowser,
         SupportsChrome;
 
-    private $url;
+    public $url;
 
     private $mobile = false;
     
     private $extraCapabilities = null;
+    
+    public $mobile = false;
 
     /**
-     * Register the base URL with Dusk.
+     * Register the base URL.
      *
      * @return void
      */
-    public function setUp($url, $mobile = false, $extraCapabilities = null)
+    public function setUp($url, $mobile = false, $extraCapabilities = [])
     {
         $this->url = $url;
 
@@ -31,7 +33,7 @@ class ChromeBrowser
         
         $this->extraCapabilities = $extraCapabilities;
 
-        Browser::$baseUrl = $this->url;
+        $this->extraCapabilities = $extraCapabilities;
 
         Browser::$storeScreenshotsAt = base_path('storage/app/chrome/screenshots');
 
@@ -55,23 +57,24 @@ class ChromeBrowser
             '--disable-gpu',
             '--headless',
             '--verbose',
-            '--user-agent="' . $ua . '"',
+            '--user-agent="'.$ua.'"',
             '--log-path='.storage_path('logs/chromedriver-errors.log'),
         ]);
-        
-        if($this->mobile) {
+
+        if ($this->mobile) {
             $options->setExperimentalOption('mobileEmulation', ['userAgent' => $ua]);
         }
-        
+
         $capabilities = DesiredCapabilities::chrome()->setCapability(
             ChromeOptions::CAPABILITY, $options
         );
 
-        if($this->extraCapabilities !== null) {
-            foreach($this->extraCapabilities as $name => $value) {
+        if ($this->extraCapabilities !== null) {
+            foreach ($this->extraCapabilities as $name => $value) {
                 $capabilities->setCapability($name, $value);
             }
         }
+
         return RemoteWebDriver::create(
             'http://localhost:9515', $capabilities
         );
