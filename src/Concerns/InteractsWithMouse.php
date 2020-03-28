@@ -17,7 +17,8 @@ trait InteractsWithMouse
     public function moveMouse($xOffset, $yOffset)
     {
         (new WebDriverActions($this->driver))->moveByOffset(
-            $xOffset, $yOffset
+            $xOffset,
+            $yOffset
         )->perform();
 
         return $this;

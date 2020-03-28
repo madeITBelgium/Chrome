@@ -19,7 +19,8 @@ trait MakesAssertions
     public function assertTitle($title)
     {
         PHPUnit::assertEquals(
-            $title, $this->driver->getTitle(),
+            $title,
+            $this->driver->getTitle(),
             "Expected title [{$title}] does not equal actual title [{$this->driver->getTitle()}]."
         );
 
@@ -65,7 +66,8 @@ trait MakesAssertions
         );
 
         PHPUnit::assertRegExp(
-            '/^'.$pattern.'$/u', $currentUrl,
+            '/^'.$pattern.'$/u',
+            $currentUrl,
             "Actual URL [{$this->driver->getCurrentURL()}] does not equal expected URL [{$url}]."
         );
 
@@ -88,7 +90,8 @@ trait MakesAssertions
         $actualPath = parse_url($this->driver->getCurrentURL())['path'];
 
         PHPUnit::assertRegExp(
-            '/^'.$pattern.'$/u', $actualPath,
+            '/^'.$pattern.'$/u',
+            $actualPath,
             "Actual path [{$actualPath}] does not equal expected path [{$path}]."
         );
 
@@ -107,7 +110,8 @@ trait MakesAssertions
         $actualPath = parse_url($this->driver->getCurrentURL())['path'];
 
         PHPUnit::assertStringStartsWith(
-            $path, $actualPath,
+            $path,
+            $actualPath,
             "Actual path [{$actualPath}] does not begin with expected path [{$path}]."
         );
 
@@ -126,7 +130,8 @@ trait MakesAssertions
         $actualPath = parse_url($this->driver->getCurrentURL())['path'];
 
         PHPUnit::assertNotEquals(
-            $path, $actualPath,
+            $path,
+            $actualPath,
             "Path [{$path}] should not equal the actual value."
         );
 
@@ -147,7 +152,8 @@ trait MakesAssertions
         $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
 
         PHPUnit::assertRegExp(
-            '/^'.str_replace('\*', '.*', $pattern).'$/u', $actualFragment,
+            '/^'.str_replace('\*', '.*', $pattern).'$/u',
+            $actualFragment,
             "Actual fragment [{$actualFragment}] does not equal expected fragment [{$fragment}]."
         );
 
@@ -166,7 +172,8 @@ trait MakesAssertions
         $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
 
         PHPUnit::assertStringStartsWith(
-            $fragment, $actualFragment,
+            $fragment,
+            $actualFragment,
             "Actual fragment [$actualFragment] does not begin with expected fragment [$fragment]."
         );
 
@@ -185,7 +192,8 @@ trait MakesAssertions
         $actualFragment = (string) parse_url($this->driver->executeScript('return window.location.href;'), PHP_URL_FRAGMENT);
 
         PHPUnit::assertNotEquals(
-            $fragment, $actualFragment,
+            $fragment,
+            $actualFragment,
             "Fragment [{$fragment}] should not equal the actual value."
         );
 
@@ -222,7 +230,8 @@ trait MakesAssertions
         }
 
         PHPUnit::assertEquals(
-            $value, $output[$name],
+            $value,
+            $output[$name],
             "Query string parameter [{$name}] had value [{$output[$name]}], but expected [{$value}]."
         );
 
@@ -249,7 +258,8 @@ trait MakesAssertions
         parse_str($parsedUrl['query'], $output);
 
         PHPUnit::assertArrayNotHasKey(
-            $name, $output,
+            $name,
+            $output,
             "Found unexpected query string parameter [{$name}] in [".$this->driver->getCurrentURL().'].'
         );
 
@@ -268,14 +278,16 @@ trait MakesAssertions
         $parsedUrl = parse_url($this->driver->getCurrentURL());
 
         PHPUnit::assertArrayHasKey(
-            'query', $parsedUrl,
+            'query',
+            $parsedUrl,
             'Did not see expected query string in ['.$this->driver->getCurrentURL().'].'
         );
 
         parse_str($parsedUrl['query'], $output);
 
         PHPUnit::assertArrayHasKey(
-            $name, $output,
+            $name,
+            $output,
             "Did not see expected query string parameter [{$name}] in [".$this->driver->getCurrentURL().'].'
         );
 
@@ -330,7 +342,8 @@ trait MakesAssertions
         $actual = $decrypt ? $this->cookie($name) : $this->plainCookie($name);
 
         PHPUnit::assertEquals(
-            $value, $actual,
+            $value,
+            $actual,
             "Cookie [{$name}] had value [{$actual}], but expected [{$value}]."
         );
 
@@ -428,7 +441,8 @@ trait MakesAssertions
     public function assertSourceHas($code)
     {
         PHPUnit::assertContains(
-            $code, $this->driver->getPageSource(),
+            $code,
+            $this->driver->getPageSource(),
             "Did not find expected source code [{$code}]"
         );
 
@@ -445,7 +459,8 @@ trait MakesAssertions
     public function assertSourceMissing($code)
     {
         PHPUnit::assertNotContains(
-            $code, $this->driver->getPageSource(),
+            $code,
+            $this->driver->getPageSource(),
             "Found unexpected source code [{$code}]"
         );
 
@@ -530,7 +545,8 @@ JS;
     public function assertInputValue($field, $value)
     {
         PHPUnit::assertEquals(
-            $value, $this->inputValue($field),
+            $value,
+            $this->inputValue($field),
             "Expected value [{$value}] for the [{$field}] input does not equal the actual value [{$this->inputValue($field)}]."
         );
 
@@ -548,7 +564,8 @@ JS;
     public function assertInputValueIsNot($field, $value)
     {
         PHPUnit::assertNotEquals(
-            $value, $this->inputValue($field),
+            $value,
+            $this->inputValue($field),
             "Value [{$value}] for the [{$field}] input should not equal the actual value."
         );
 
@@ -704,7 +721,8 @@ JS;
         })->all();
 
         PHPUnit::assertCount(
-            count($values), $options,
+            count($values),
+            $options,
             'Expected options ['.implode(',', $values)."] for selection field [{$field}] to be available."
         );
 
@@ -722,7 +740,8 @@ JS;
     public function assertSelectMissingOptions($field, array $values)
     {
         PHPUnit::assertCount(
-            0, $this->resolver->resolveSelectOptions($field, $values),
+            0,
+            $this->resolver->resolveSelectOptions($field, $values),
             'Unexpected options ['.implode(',', $values)."] for selection field [{$field}]."
         );
 
@@ -859,7 +878,8 @@ JS;
         $actualMessage = $this->driver->switchTo()->alert()->getText();
 
         PHPUnit::assertEquals(
-            $message, $actualMessage,
+            $message,
+            $actualMessage,
             "Expected dialog message [{$message}] does not equal actual message [{$actualMessage}]."
         );
 
