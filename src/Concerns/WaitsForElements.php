@@ -154,7 +154,8 @@ trait WaitsForElements
         $seconds = is_null($seconds) ? static::$waitSeconds : $seconds;
 
         $this->driver->wait($seconds, 100)->until(
-            WebDriverExpectedCondition::alertIsPresent(), "Waited {$seconds} seconds for dialog."
+            WebDriverExpectedCondition::alertIsPresent(),
+            "Waited {$seconds} seconds for dialog."
         );
 
         return $this;
@@ -213,7 +214,8 @@ trait WaitsForElements
             }
 
             if ($started->lt(Carbon::now()->subSeconds($seconds))) {
-                throw new TimeOutException($message
+                throw new TimeOutException(
+                    $message
                     ? sprintf($message, $seconds)
                     : "Waited {$seconds} seconds for callback."
                 );
