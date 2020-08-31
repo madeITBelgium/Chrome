@@ -325,7 +325,8 @@ trait InteractsWithElements
     public function drag($from, $to)
     {
         (new WebDriverActions($this->driver))->dragAndDrop(
-            $this->resolver->findOrFail($from), $this->resolver->findOrFail($to)
+            $this->resolver->findOrFail($from),
+            $this->resolver->findOrFail($to)
         )->perform();
 
         return $this;
@@ -395,7 +396,9 @@ trait InteractsWithElements
     public function dragOffset($selector, $x = 0, $y = 0)
     {
         (new WebDriverActions($this->driver))->dragAndDropBy(
-            $this->resolver->findOrFail($selector), $x, $y
+            $this->resolver->findOrFail($selector),
+            $x,
+            $y
         )->perform();
 
         return $this;

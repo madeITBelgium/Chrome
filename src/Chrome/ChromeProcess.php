@@ -63,7 +63,9 @@ class ChromeProcess
     protected function process()
     {
         return new Process(
-            [realpath($this->driver)], null, $this->chromeEnvironment()
+            [realpath($this->driver)],
+            null,
+            $this->chromeEnvironment()
         );
     }
 
