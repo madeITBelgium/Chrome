@@ -64,7 +64,8 @@ class ChromeBrowser
         }
 
         $capabilities = DesiredCapabilities::chrome()->setCapability(
-            ChromeOptions::CAPABILITY, $options
+            ChromeOptions::CAPABILITY,
+            $options
         );
 
         if ($this->extraCapabilities !== null) {
@@ -74,7 +75,8 @@ class ChromeBrowser
         }
 
         return RemoteWebDriver::create(
-            'http://localhost:9515', $capabilities
+            'http://localhost:9515',
+            $capabilities
         );
     }
 }
