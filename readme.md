@@ -13,7 +13,7 @@ With this Laravel package you interact with a Chrome headless webbrowser. This p
 Require this package in your `composer.json` and update composer.
 
 ```php
-"madeitbelgium/chrome": "~1.0"
+"madeitbelgium/chrome": "^1.3"
 ```
 
 # Documentation

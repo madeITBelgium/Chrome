@@ -18,7 +18,7 @@ class SupportsChromeTest extends TestCase
 
         $process->stop();
 
-        $this->assertContains('Starting ChromeDriver', $process->getOutput());
+        $this->assertStringContainsString('Starting ChromeDriver', $process->getOutput());
         $this->assertSame('', $process->getErrorOutput());
     }
 }

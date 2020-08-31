@@ -50,12 +50,11 @@ class WaitsForElementsTest extends TestCase
             return true;
         });
     }
-
-    /**
-     * @expectedException \Facebook\WebDriver\Exception\TimeOutException
-     */
+    
     public function test_wait_using_failure()
     {
+        $this->expectException(\Facebook\WebDriver\Exception\TimeOutException::class);
+        
         $browser = new Browser(new StdClass());
 
         $browser->waitUsing(1, 100, function () {

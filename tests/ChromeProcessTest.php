@@ -11,7 +11,7 @@ class ChromeProcessTest extends TestCase
         $process = (new \MadeITBelgium\Chrome\Chrome\ChromeProcess($driver))->toProcess();
 
         $this->assertInstanceOf(Symfony\Component\Process\Process::class, $process);
-        $this->assertContains("$driver", $process->getCommandLine());
+        $this->assertStringContainsString("$driver", $process->getCommandLine());
     }
 
     public function test_build_process_for_windows()
@@ -19,7 +19,7 @@ class ChromeProcessTest extends TestCase
         $process = (new ChromeProcessWindows())->toProcess();
 
         $this->assertInstanceOf(Symfony\Component\Process\Process::class, $process);
-        $this->assertContains('chromedriver-win.exe', $process->getCommandLine());
+        $this->assertStringContainsString('chromedriver-win.exe', $process->getCommandLine());
     }
 
     public function test_build_process_for_darwin()
@@ -27,7 +27,7 @@ class ChromeProcessTest extends TestCase
         $process = (new ChromeProcessDarwin())->toProcess();
 
         $this->assertInstanceOf(Symfony\Component\Process\Process::class, $process);
-        $this->assertContains('chromedriver-mac', $process->getCommandLine());
+        $this->assertStringContainsString('chromedriver-mac', $process->getCommandLine());
     }
 
     public function test_build_process_for_linux()
@@ -35,7 +35,7 @@ class ChromeProcessTest extends TestCase
         $process = (new ChromeProcessLinux())->toProcess();
 
         $this->assertInstanceOf(Symfony\Component\Process\Process::class, $process);
-        $this->assertContains('chromedriver-linux', $process->getCommandLine());
+        $this->assertStringContainsString('chromedriver-linux', $process->getCommandLine());
     }
 
     public function test_invalid_path()
