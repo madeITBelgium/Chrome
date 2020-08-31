@@ -4,9 +4,9 @@ namespace MadeITBelgium\Chrome;
 
 use BadMethodCallException;
 use Closure;
+use Facebook\WebDriver\Cookie;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 use Facebook\WebDriver\WebDriverDimension;
-use Facebook\WebDriver\Cookie;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 
@@ -206,7 +206,8 @@ class Browser
 
             if (!empty($console)) {
                 file_put_contents(
-                    sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name), json_encode($console, JSON_PRETTY_PRINT)
+                    sprintf('%s/%s.log', rtrim(static::$storeConsoleLogAt, '/'), $name),
+                    json_encode($console, JSON_PRETTY_PRINT)
                 );
             }
         }
@@ -353,9 +354,9 @@ class Browser
     {
         exit();
     }
-    
+
     /**
-     * Get cookies
+     * Get cookies.
      *
      * @return array
      */
@@ -363,9 +364,9 @@ class Browser
     {
         return $this->driver->manage()->getCookies();
     }
-    
+
     /**
-     * Delete all cookies cookies
+     * Delete all cookies cookies.
      *
      * @return void
      */
@@ -373,9 +374,9 @@ class Browser
     {
         $this->driver->manage()->deleteAllCookies();
     }
-    
+
     /**
-     * Add cookie
+     * Add cookie.
      *
      * @return void
      */
@@ -383,7 +384,7 @@ class Browser
     {
         $this->driver->manage()->addCookie(new Cookie($key, $value));
     }
-    
+
     /**
      * Dynamically call a method on the browser.
      *

@@ -403,7 +403,9 @@ class ElementResolver
         })->toArray();
 
         $selector = str_replace(
-            array_keys($sortedElements), array_values($sortedElements), $originalSelector = $selector
+            array_keys($sortedElements),
+            array_values($sortedElements),
+            $originalSelector = $selector
         );
 
         if (Str::startsWith($selector, '@') && $selector === $originalSelector) {
