@@ -6,6 +6,7 @@ use BadMethodCallException;
 use Closure;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 use Facebook\WebDriver\WebDriverDimension;
+use Facebook\WebDriver\Cookie;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 
@@ -352,7 +353,37 @@ class Browser
     {
         exit();
     }
-
+    
+    /**
+     * Get cookies
+     *
+     * @return array
+     */
+    public function getCookies()
+    {
+        return $this->driver->manage()->getCookies();
+    }
+    
+    /**
+     * Delete all cookies cookies
+     *
+     * @return void
+     */
+    public function deleteAllCookies()
+    {
+        $this->driver->manage()->deleteAllCookies();
+    }
+    
+    /**
+     * Add cookie
+     *
+     * @return void
+     */
+    public function addCookie($key, $value)
+    {
+        $this->driver->manage()->addCookie(new Cookie($key, $value));
+    }
+    
     /**
      * Dynamically call a method on the browser.
      *
