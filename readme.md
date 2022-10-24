@@ -25,6 +25,7 @@ $chromebrowser->startChromeDriver();
 
 $chromebrowser->browse(function (Browser $browser) {
     $browser->visit('https://www.example.com');
+    $browser->screenshot('screenshot');
 });
 
 
@@ -89,6 +90,28 @@ $chromebrowser->closeAll();
 $chromebrowser->stopChromeDriver();
 ```
 
+Change location
+```php
+$chromebrowser = new \MadeITBelgium\Chrome\ChromeBrowser();
+$chromebrowser->setUp($url, false); //False = desktop
+$chromebrowser->startChromeDriver();
+
+$chromebrowser->browse(function (Browser $browser) {
+    $devTools = new \Facebook\WebDriver\Chrome\ChromeDevToolsDriver($browser->driver);
+    $coordinates = [
+        'latitude' => 39.913818,
+        'longitude' => 116.363625,
+        'accuracy' => 1,
+    ];
+    $devTools->execute('Emulation.setGeolocationOverride', $coordinates);
+    $browser->visit('https://www.example.com');
+    $browser->screenshot('screenshot');
+});
+
+
+$chromebrowser->closeAll();
+$chromebrowser->stopChromeDriver();
+```
 The complete documentation can be found at: [http://www.madeit.be/](http://www.madeit.be/)
 
 
