@@ -10,7 +10,7 @@ class WaitsForElementsTest extends TestCase
     {
         Browser::$waitSeconds = 2;
 
-        $browser = new Browser(new StdClass());
+        $browser = new Browser(new stdClass());
         $then = microtime(true);
 
         try {
@@ -28,7 +28,7 @@ class WaitsForElementsTest extends TestCase
     {
         Browser::$waitSeconds = 2;
 
-        $browser = new Browser(new StdClass());
+        $browser = new Browser(new stdClass());
         $then = microtime(true);
 
         try {
@@ -44,7 +44,7 @@ class WaitsForElementsTest extends TestCase
 
     public function test_wait_using()
     {
-        $browser = new Browser(new StdClass());
+        $browser = new Browser(new stdClass());
 
         $browser->waitUsing(5, 100, function () {
             return true;
@@ -55,7 +55,7 @@ class WaitsForElementsTest extends TestCase
     {
         $this->expectException(\Facebook\WebDriver\Exception\TimeOutException::class);
 
-        $browser = new Browser(new StdClass());
+        $browser = new Browser(new stdClass());
 
         $browser->waitUsing(1, 100, function () {
             return false;
