@@ -8,7 +8,7 @@ class ComponentTest extends TestCase
 {
     public function test_within_method_triggers_assertion()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = Mockery::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $browser->within($component = new TestComponent(), function ($browser) {
@@ -22,7 +22,7 @@ class ComponentTest extends TestCase
 
     public function test_resolver_prefix()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = Mockery::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $browser->within($component = new TestComponent(), function ($browser) {
@@ -40,7 +40,7 @@ class ComponentTest extends TestCase
 
     public function test_component_macros()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = Mockery::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $browser->within($component = new TestComponent(), function ($browser) {
@@ -56,7 +56,7 @@ class ComponentTest extends TestCase
 
     public function test_component_elements()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = Mockery::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $browser->within($component = new TestComponent(), function ($browser) {
@@ -77,7 +77,7 @@ class ComponentTest extends TestCase
 
     public function test_root_selector_can_be_chrome_hook()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = Mockery::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $component = new TestComponent();
@@ -90,7 +90,7 @@ class ComponentTest extends TestCase
 
     public function test_root_selector_can_be_element_alias()
     {
-        $driver = Mockery::mock(StdClass::class);
+        $driver = Mockery::mock(stdClass::class);
         $browser = new Browser($driver);
 
         $component = new TestComponent();
